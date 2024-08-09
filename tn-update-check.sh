@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Vars "+" for Spaces in text vars
+# Vars
 #
 
 ntfy='<server>'
 ntfy_topic='<topic>'
 title='<title>'
-message='<message>'   #Spaces = '+'
+message='<message>'
 prio='<priority>' # Min/low/default/high/urgent
 
 #
@@ -28,7 +28,7 @@ fi
 #     1 = no updates
 if $SUDO $upcheck > /dev/null 2>&1
 then
-    curl "$ntfy/$ntfy_topic/publish?title=$title&message=$message&priority=$prio"
+    curl -H "Title: $title" -H "Priority: $prio" -d "$message" "$ntfy/$ntfy_topic"
     exit 1
 else
     echo 'OK: No updates available.'
